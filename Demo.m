@@ -11,6 +11,7 @@ use_gpu = 1;
 verbose = 'outer';
 data = 'city_10';
 %data = 'fruit_10';
+
 %% load data
 load (sprintf('datasets/%s/train/train_lcne.mat',data)) %%% 
 %[b] = z0u1(b);
@@ -24,16 +25,22 @@ end
 if (PARA.gpu ==1)
     b = gpuArray(b);
 end
+
+% PARA.max_it = 10;
+% PARA.max_it_d = 10;
+% PARA.max_it_w = 10;
+% PARA.max_it_z = 10;
+
 %% run
 t1 = tic;
-[s_small,s_hat,R] = alt_min_apg(padB,PARA,b);%%%
+[s_small,s_hat,R,A_h,B_h] = alt_min_apg(padB,PARA,b);%%%
 tt = toc(t1);
 %% save
 repo_name = 'result';
 repo_path =  sprintf('%s/%s',repo_name,data);
 save_name = sprintf('R%d_K%d_psf%d',Ri,K,psf_s(1));
 save_me = sprintf('%s/record_%s.mat',repo_path,save_name);
-save(save_me,'s_hat','s_small','R','tt');
+% save(save_me,'s_hat','s_small','R','tt');
 fprintf('Done sample-dependent CSC! --> Time %2.2f sec.\n\n', tt)
 
 

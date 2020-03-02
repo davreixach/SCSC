@@ -4,32 +4,37 @@
 
 %% Initialization
 
-% clear all, close all, clc
-% projectStartup('mcsc')
-% pythonStartup   % correct PY/MKL incompatibility
-% 
-% dbstop if error
-% 
-% cd([project,'/SCSC'])
+clear all, close all, clc
+projectStartup('mcsc')
+pythonStartup   % correct PY/MKL incompatibility
+
+dbstop if error
 
 rng('default')
+
+cd([project,'/SCSC'])
+
+rng(12345,'Twister')
 
 %% Select data
 % datasetsPath = '/home/david/Modular/Datasets/CVPR20/';
 datasetsPath = '/home/dreixach/Modular/Datasets/CVPR20/';
 
-% exp = 3;
+exp = 3;
 
 nameCell = {'02_city_SCSC_';
-            '02_fruit_SCSC_'};
+            '02_fruit_SCSC_';
+            '02_caltech_city_SCSC_';
+            '02_caltech_fruit_SCSC_'};
 
 dataCell = {[datasetsPath,'city.mat'];
         [datasetsPath,'fruit.mat'];
-        [datasetsPath,'city_fruit_testing.mat']};
+        [datasetsPath,'city_fruit_testing.mat'];
+        [datasetsPath,'caltech_testing.mat']};
 
 data = dataCell{exp};
 name = nameCell{exp};
-dataTest = dataCell{3};
+dataTest = dataCell{4};
 
 load2(data,'S','b')
 load2(dataTest,'S','btest')

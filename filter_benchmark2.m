@@ -18,21 +18,21 @@ rng('default')
 % datasetsPath = '/home/david/Modular/Datasets/CVPR20/';
 datasetsPath = '/home/dreixach/Modular/Datasets/CVPR20/';
 
-% exp = 3;
+% exp = 1;
 
-nameCell = {'02_city_SCSC_';
-            '02_fruit_SCSC_'};
+nameCell = {'02_caltech_city_SCSC_';
+            '02_caltech_fruit_SCSC_'};
 
 dataCell = {[datasetsPath,'city.mat'];
         [datasetsPath,'fruit.mat'];
-        [datasetsPath,'city_fruit_testing.mat']};
+        [datasetsPath,'caltech_testing.mat']};
 
 data = dataCell{exp};
 name = nameCell{exp};
 dataTest = dataCell{3};
 
 load2(data,'S','b')
-load2(dataTest,'S','btest')
+load2(dataTest,'S','btest_cell')
 
 %% set para
 
@@ -48,10 +48,7 @@ verbose = 'outer';
 %% prepare data
 
 b = squeeze(b);
-btest = squeeze(btest);
-
 padB = padarray(b, [psf_radius, 0], 0, 'both');
-padBtest = padarray(btest, [psf_radius, 0], 0, 'both');
 
 %% run experiment
 
@@ -61,7 +58,6 @@ resTesting = [];
 for K = K_exp
     
     PARAtrain = auto_para_apg(Ri,K,psf_s,b,verbose,precS,use_gpu,1e-3);
-    PARAtest = auto_para_apg(Ri,K,psf_s,btest,verbose,precS,use_gpu,1e-3);
 
     if (PARAtrain.precS ==1)
         b = single(b);
@@ -74,16 +70,25 @@ for K = K_exp
     [~,s_hat,R_D] = apg_trainer(padB,PARAtrain,b);
     td = toc(t1);    
     fprintf('\nDone training K: %i! --> Time: %2.2f s\n\n', K, td)
-    
-    t2 = tic;
-    [~,s_hat,R_Z] = apg_trainer(padBtest,PARAtest,btest,s_hat);    
-    tc = toc(t2);    
-    fprintf('\nDone testing K: %i! --> Time: %2.2f s, PSNR: %.2f, CR: %.2f\n\n\n', K, tc,R_Z.PSNR,R_Z.CR)
-    
+        
     R_D.K = K;
-    R_Z.K = K;
-    
     resTraining = [resTraining, R_D];
+    
+    for j = 1:length(btest_cell)
+
+        btest = squeeze(btest_cell{j});
+        padBtest = padarray(btest, [psf_radius, 0], 0, 'both');        
+        
+        PARAtest = auto_para_apg(Ri,K,psf_s,btest,verbose,precS,use_gpu,1e-3);
+
+        t2 = tic;
+        [~,s_hat,R_Z] = apg_trainer(padBtest,PARAtest,btest,s_hat);    
+        tc = toc(t2);    
+        fprintf('\nDone testing K: %i! --> Time: %2.2f s, PSNR: %.2f, CR: %.2f\n\n\n', K, tc,R_Z.PSNR,R_Z.CR)
+
+        R_Z.K = K;
+        
+    end
     resTesting =  [resTesting, R_Z];
 
 end

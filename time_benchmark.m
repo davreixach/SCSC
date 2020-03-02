@@ -4,23 +4,19 @@
 
 %% Initialization
 
-clear all, close all, clc
-projectStartup('mcsc')
-pythonStartup   % correct PY/MKL incompatibility
-
-dbstop if error
+% clear all, close all, clc
+% projectStartup('mcsc')
+% pythonStartup   % correct PY/MKL incompatibility
+% 
+% dbstop if error
 
 rng('default')
-
-cd([project,'/SCSC'])
-
-rng(12345,'Twister')
 
 %% Select data
 % datasetsPath = '/home/david/Modular/Datasets/CVPR20/';
 datasetsPath = '/home/dreixach/Modular/Datasets/CVPR20/';
 
-exp = 1;
+% exp = 1;
 
 nameCell = {'03_city_SCSC_';
             '03_fruit_SCSC_'};
@@ -90,7 +86,7 @@ for id_init = 1:5
     
     resTesting = [];
 
-    for it_z = linspace(1,5000,10)
+    for it_z = linspace(1,5000,60)
         
         PARAtest.max_it_z = it_z;
 
@@ -100,6 +96,10 @@ for id_init = 1:5
         fprintf('\nDone testing K: %i! --> Time: %2.2f s, PSNR: %.2f, CR: %.2f\n\n\n', K, tc,R_Z.PSNR,R_Z.CR)
 
         resTesting =  [resTesting, R_Z];
+        
+        if R_Z.iter_code(end)<it_z
+            break;
+        end
 
     end
 

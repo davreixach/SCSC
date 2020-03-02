@@ -21,6 +21,7 @@ y=[];
 result = [];
 resTest = [];
 for s_i=1:para.N 
+    t0 = tic;
     if strcmp( para.verbose, 'all')||strcmp( para.verbose, 'outer')
         fprintf('--%d--\t',s_i) 
     end
@@ -80,6 +81,7 @@ for s_i=1:para.N
         
         resTrain.iter_dic(s_i) = iterD;
         resTrain.time_dic(s_i) = timeD;
+        resTrain.time_total(s_i) = toc(t0);
         
     else
         fprintf('\n')    

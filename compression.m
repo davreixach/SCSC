@@ -4,13 +4,13 @@
 
 %% Initialization
 
-% clear all, close all, clc
-% projectStartup('mcsc')
-% pythonStartup   % correct PY/MKL incompatibility
-% 
-% dbstop if error
-% 
-% cd([project,'/SCSC'])
+clear all, close all, clc
+projectStartup('mcsc')
+pythonStartup   % correct PY/MKL incompatibility
+
+dbstop if error
+
+cd([project,'/SCSC'])
 
 rng('default')
 
@@ -22,20 +22,18 @@ exp = 1;
 
 nameCell = {'10_Choudhury_'};
 
-dataCell = {[datasetsPath,'city.mat'];
-        [datasetsPath,'fruit.mat'];
-        [datasetsPath,'city_fruit_testing.mat']};
+dataCell = {[datasetsPath,'Choudhury_GT.mat']};
 
 data = dataCell{exp};
 name = nameCell{exp};
-dataTest = dataCell{3};
+dataTest = dataCell{1};
 
 load2(data,'S','b')
 load2(dataTest,'S','btest')
 
 %% set para
 
-K_exp = [5,15,25,50,100,200];
+K_exp = [5,15,25,50,100];
 
 Ri = 10;
 psf_s=[11,11]; 

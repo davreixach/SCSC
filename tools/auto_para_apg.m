@@ -1,4 +1,4 @@
-function PARA = auto_para_apg(R,K,psf_s,b,des,precS,use_gpu,tol)
+function PARA = auto_para_apg(R,K,psf_s,b,des,precS,use_gpu,tol,lambda_l1)
 PARA = [];
 PARA.verbose = des; 
 PARA.precS = precS;
@@ -8,7 +8,7 @@ PARA.psf_s = psf_s;
 PARA.psf_radius = floor( PARA.psf_s/2 );
 PARA.tol = tol;
 lambda_residual = 1; 
-lambda_l1 = 0.1; 
+% lambda_l1 = 0.1; 
 %%
 PARA.lambda = [lambda_residual, lambda_l1];
 PARA.max_it = 100;

@@ -42,6 +42,7 @@ psf_radius = floor( psf_s/2 );
 precS = 1;
 use_gpu = 1;
 verbose = 'outer';
+lambda_l1 = 1;
 
 %% prepare data
 
@@ -51,8 +52,8 @@ btest = squeeze(btest);
 padB = padarray(b, [psf_radius, 0], 0, 'both');
 padBtest = padarray(btest, [psf_radius, 0], 0, 'both');
 
-PARAtrain = auto_para_apg(Ri,K,psf_s,b,verbose,precS,use_gpu,1e-3);
-PARAtest = auto_para_apg(Ri,K,psf_s,btest,verbose,precS,use_gpu,1e-3);
+PARAtrain = auto_para_apg(Ri,K,psf_s,b,verbose,precS,use_gpu,1e-3,lambda_l1);
+PARAtest = auto_para_apg(Ri,K,psf_s,btest,verbose,precS,use_gpu,1e-3,lambda_l1);
 
 if (PARAtrain.precS ==1)
     b = single(b);
@@ -97,7 +98,7 @@ for id_init = 1:5
 
         resTesting =  [resTesting, R_Z];
         
-        if R_Z.iter_code(end)<it_z
+        if max(R_Z.iter_code) < it_z
             break;
         end
 

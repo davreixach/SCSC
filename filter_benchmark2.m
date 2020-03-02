@@ -81,8 +81,9 @@ for K = K_exp
         
         PARAtest = auto_para_apg(Ri,K,psf_s,btest,verbose,precS,use_gpu,1e-3);
         
-        s_ = dsmall2d(s,PARAtest);
-        s_hat = fft2(s_);
+        s_1 = d2dsmall(s,PARAtrain);
+        s_2 = dsmall2d(s_1,PARAtest);
+        s_hat = fft2(s_2);
 
         t2 = tic;
         [~,s_hat,R_Z] = apg_trainer(padBtest,PARAtest,btest,s_hat);    

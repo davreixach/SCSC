@@ -33,11 +33,11 @@ load2(dataTest,'S','btest')
 
 %% set para
 
-K_exp = [5,15,25,50,100];
+F_exp = [3,5];%,7,9,11];
+K_exp = [5];%,15,25,50,100];
+lmda_exp = [0.001];%,0.01,0.1,0.5,1,5,10];
 
 Ri = 10;
-psf_s=[11,11]; 
-psf_radius = floor( psf_s/2 );
 precS = 1;
 use_gpu = 1;
 verbose = 'outer';
@@ -47,44 +47,57 @@ verbose = 'outer';
 b = squeeze(b);
 btest = squeeze(btest);
 
-padB = padarray(b, [psf_radius, 0], 0, 'both');
-padBtest = padarray(btest, [psf_radius, 0], 0, 'both');
-
 %% run experiment
 
 resTraining = [];
 resTesting = [];
 
-for K = K_exp
-    
-    PARAtrain = auto_para_apg(Ri,K,psf_s,b,verbose,precS,use_gpu,1e-3);
-    PARAtest = auto_para_apg(Ri,K,psf_s,btest,verbose,precS,use_gpu,1e-3);
+for F = F_exp
 
-    if (PARAtrain.precS ==1)
-        b = single(b);
-    end
-    if (PARAtrain.gpu ==1)
-        b = gpuArray(b);
-    end
+    psf_s=[F,F]; 
+    psf_radius = floor( psf_s/2 );
     
-    t1 = tic;
-    [~,s_hat,R_D] = apg_trainer(padB,PARAtrain,b);
-    td = toc(t1);    
-    fprintf('\nDone training K: %i! --> Time: %2.2f s\n\n', K, td)
+    padB = padarray(b, [psf_radius, 0], 0, 'both');
+    padBtest = padarray(btest, [psf_radius, 0], 0, 'both');
     
-    t2 = tic;
-    [~,s_hat,R_Z] = apg_trainer(padBtest,PARAtest,btest,s_hat);    
-    tc = toc(t2);    
-    fprintf('\nDone testing K: %i! --> Time: %2.2f s, PSNR: %.2f, CR: %.2f\n\n\n', K, tc,R_Z.PSNR,R_Z.CR)
-    
-    R_D.K = K;
-    R_Z.K = K;
-    
-    resTraining = [resTraining, R_D];
-    resTesting =  [resTesting, R_Z];
+    for K = K_exp    
+        for L = lmda_exp
 
+            PARAtrain = auto_para_apg(Ri,K,psf_s,b,verbose,precS,use_gpu,1e-3,L);
+            PARAtest = auto_para_apg(Ri,K,psf_s,btest,verbose,precS,use_gpu,1e-3,L);
+
+            if (PARAtrain.precS ==1)
+                b = single(b);
+            end
+            if (PARAtrain.gpu ==1)
+                b = gpuArray(b);
+            end
+
+            t1 = tic;
+            [~,s_hat,R_D] = apg_trainer(padB,PARAtrain,b);
+            td = toc(t1);    
+            fprintf('\nDone training K: %i! --> Time: %2.2f s\n\n', K, td)
+
+            t2 = tic;
+            [~,s_hat,R_Z] = apg_trainer(padBtest,PARAtest,btest,s_hat);    
+            tc = toc(t2);    
+            fprintf('\nDone testing K: %i! --> Time: %2.2f s, PSNR: %.2f, CR: %.2f\n\n\n', K, tc,R_Z.PSNR,R_Z.CR)
+
+            R_D.L = L;
+            R_Z.L = L;
+
+            R_D.K = K;
+            R_Z.K = K;
+
+            R_D.F = F;
+            R_Z.F = F;
+
+            resTraining = [resTraining, R_D];
+            resTesting =  [resTesting, R_Z];
+
+        end
+    end
 end
-
 
 %% save
 

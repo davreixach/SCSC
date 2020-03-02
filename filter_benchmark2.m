@@ -67,7 +67,7 @@ for K = K_exp
     end
     
     t1 = tic;
-    [~,s_hat,R_D] = apg_trainer(padB,PARAtrain,b);
+    [s,s_hat,R_D] = apg_trainer(padB,PARAtrain,b);
     td = toc(t1);    
     fprintf('\nDone training K: %i! --> Time: %2.2f s\n\n', K, td)
         
@@ -80,6 +80,9 @@ for K = K_exp
         padBtest = padarray(btest, [psf_radius, 0], 0, 'both');        
         
         PARAtest = auto_para_apg(Ri,K,psf_s,btest,verbose,precS,use_gpu,1e-3);
+        
+        s_ = dsmall2d(s,PARAtest);
+        s_hat = fft2(s_);
 
         t2 = tic;
         [~,s_hat,R_Z] = apg_trainer(padBtest,PARAtest,btest,s_hat);    

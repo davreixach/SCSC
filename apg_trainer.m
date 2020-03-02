@@ -1,4 +1,4 @@
-function [s_curr,s_hat,result,A_h,B_h] = apg_trainer(Mtb,para,b,s_hat)      
+function [s,s_hat,result,A_h,B_h] = apg_trainer(Mtb,para,b,s_hat)      
 %% Initialize variables
 b_hat = fft2(Mtb);
 clear Mtb

@@ -12,28 +12,27 @@ cd([project,'/SCSC'])
 
 %% Run
 
+% F.benchmark 1
+exp = 1;
+filter_benchmark
 
-% % F.benchmark 1
-% exp = 1;
-% filter_benchmark
-% 
-% clearvars -except project
-% exp = 2;
-% filter_benchmark
-% 
-% 
-% % F.benchmark 2
-% clearvars -except project
-% exp = 1;
-% filter_benchmark2
-% 
-% clearvars -except project
-% exp = 2;
-% filter_benchmark2
-% 
-% 
-% % T.benchmark
-% clearvars -except project
+clearvars -except project
+exp = 2;
+filter_benchmark
+
+
+% F.benchmark 2
+clearvars -except project
+exp = 1;
+filter_benchmark2
+
+clearvars -except project
+exp = 2;
+filter_benchmark2
+
+
+% T.benchmark
+clearvars -except project
 exp = 1;
 time_benchmark
 

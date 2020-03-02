@@ -163,7 +163,8 @@ disp(['... Found file mtimesx_RealTimesReal.c in ' rname]);
 % Open the current mexopts.bat file
 %/
 
-mexopts = [prefdir '\mexopts.bat'];
+% mexopts = [prefdir '\mexopts.bat'];
+mexopts = [prefdir '\mex_C_win64.xml']; 
 fid = fopen(mexopts);
 if( fid == -1 )
     error('A C/C++ compiler has not been selected with mex -setup');

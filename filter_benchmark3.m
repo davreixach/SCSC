@@ -15,8 +15,8 @@
 rng('default')
 
 %% Select data
-% datasetsPath = '/home/david/Modular/Datasets/CVPR20/';
-datasetsPath = '/home/dreixach/Modular/Datasets/CVPR20/';
+datasetsPath = '/home/david/Modular/Datasets/CVPR20/';
+% datasetsPath = '/home/dreixach/Modular/Datasets/CVPR20/';
 
 % exp = 1;
 

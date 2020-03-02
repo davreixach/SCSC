@@ -28,12 +28,12 @@ cd([project,'/SCSC'])
 % filter_benchmark2
 % 
 % clearvars -except project
-exp = 2;
-filter_benchmark2
-
-
-% T.benchmark
-clearvars -except project
+% exp = 2;
+% filter_benchmark2
+% 
+% 
+% % T.benchmark
+% clearvars -except project
 exp = 1;
 time_benchmark
 

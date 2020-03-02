@@ -88,7 +88,7 @@ for id_init = 1:5
 
     for it_z = linspace(1,5000,60)
         
-        PARAtest.max_it_z = it_z;
+        PARAtest.max_it_z = ceil(it_z);
 
         t2 = tic;
         [~,s_hat,R_Z] = apg_trainer(padBtest,PARAtest,btest,s_hat);    

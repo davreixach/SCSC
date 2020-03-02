@@ -13,7 +13,7 @@ lambda_l1 = 0.1;
 PARA.lambda = [lambda_residual, lambda_l1];
 PARA.max_it = 100;
 PARA.max_it_d=100;
-PARA.max_it_z=100;
+PARA.max_it_z=5000;
 
 PARA.n =1;
 PARA.size_ori_x = size(b);

@@ -14,22 +14,27 @@ rng('default')
 
 cd([project,'/SCSC'])
 
+rng(12345,'Twister')
+
 %% Select data
 % datasetsPath = '/home/david/Modular/Datasets/CVPR20/';
 datasetsPath = '/home/dreixach/Modular/Datasets/CVPR20/';
 
-exp = 2;
+exp = 3;
 
-nameCell = {'01_city_SCSC_';
-            '01_fruit_SCSC_'};
+nameCell = {'02_city_SCSC_';
+            '02_fruit_SCSC_';
+            '02_caltech_city_SCSC_';
+            '02_caltech_fruit_SCSC_'};
 
 dataCell = {[datasetsPath,'city.mat'];
         [datasetsPath,'fruit.mat'];
-        [datasetsPath,'city_fruit_testing.mat']};
+        [datasetsPath,'city_fruit_testing.mat'];
+        [datasetsPath,'caltech_testing.mat']};
 
 data = dataCell{exp};
 name = nameCell{exp};
-dataTest = dataCell{3};
+dataTest = dataCell{4};
 
 load2(data,'S','b')
 load2(dataTest,'S','btest')
@@ -93,5 +98,5 @@ end
 
 dataPath = [project,'/data/'];
 
-save2([dataPath,name,'TrainResults.mat'],'resTrain','dataset','-noappend')
-save2([dataPath,name,'TestResults.mat'],'resTest','dataset','-noappend')
+save2([dataPath,name,'TrainResults.mat'],'resTraining','dataset','-noappend')
+save2([dataPath,name,'TestResults.mat'],'resTesting','dataset','-noappend')

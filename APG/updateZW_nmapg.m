@@ -1,7 +1,8 @@
 function [z_hat, W, z,i] = updateZW_nmapg(z,W,x_hat,s_hat,par,b)
 
 tol =1e-6;
-max_it_z = 5000;
+% max_it_z = 5000;
+max_it_z = par.matx_it_z;
 step_size = 1; 
 shat_flat = reshape(s_hat,par.size_x(1)*par.size_x(2),[]);
 f = @(z,W)obj_apg(z,W,x_hat,shat_flat, par);

@@ -36,7 +36,9 @@ load2(dataTest,'S','btest_cell')
 
 %% set para
 
-K_exp = [5,15,25,50,100,200];
+% K_exp = [5,15,25,50,100,200];
+K_exp = [5,15,25,50];
+
 
 Ri = 10;
 psf_s=[11,11]; 

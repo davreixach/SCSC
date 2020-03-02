@@ -3,7 +3,7 @@ function [s_curr,s_hat,resTrain,resTest,A_h,B_h] = apg_trainer2(Mtb,para,b,Mtbte
 b_hat = fft2(Mtb);
 clear Mtb
 
-if nargin > 3   % dictionary is provided
+if nargin > 6   % dictionary is provided
     [W,~,z] = init_SWZ(para);
     solveDict = false;
 else

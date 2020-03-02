@@ -22,8 +22,8 @@ datasetsPath = '/home/dreixach/Modular/Datasets/CVPR20/';
 
 exp = 1;
 
-nameCell = {'02_city_SCSC_';
-            '02_fruit_SCSC_'};
+nameCell = {'03_city_SCSC_';
+            '03_fruit_SCSC_'};
 
 dataCell = {[datasetsPath,'city.mat'];
         [datasetsPath,'fruit.mat'];
@@ -80,8 +80,8 @@ for id_init = 1:5
     % save
     dataPath = [project,'/data/'];
 
-    save2(sprintf([dataPath,name,'%02i','CDL_TrainResults.mat'],id_init),'resTraining','dataset','-noappend')
-    save2(sprintf([dataPath,name,'%02i','CDL_TestResults.mat'],id_init),'resTesting','dataset','-noappend')
+    save2(sprintf([dataPath,name,'%02i','CDL_TrainResults.mat'],id_init),'dataset','resTraining','-noappend')
+    save2(sprintf([dataPath,name,'%02i','CDL_TestResults.mat'],id_init),'dataset','resTesting','-noappend')
 end
 
 %% CSC
@@ -106,5 +106,5 @@ for id_init = 1:5
     % save
     dataPath = [project,'/data/'];
 
-    save2(sprintf([dataPath,name,'%02i','CSC_TestResults.mat'],id_init),'resTesting','dataset','-noappend')
+    save2(sprintf([dataPath,name,'%02i','CSC_TestResults.mat'],id_init),'dataset','resTesting','-noappend')
 end

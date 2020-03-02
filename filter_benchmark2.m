@@ -91,9 +91,9 @@ for K = K_exp
         fprintf('\nDone testing K: %i! --> Time: %2.2f s, PSNR: %.2f, CR: %.2f\n\n\n', K, tc,R_Z.PSNR,R_Z.CR)
 
         R_Z.K = K;
+        resTesting = [resTesting, R_Z];
         
     end
-    resTesting =  [resTesting, R_Z];
 
 end
 

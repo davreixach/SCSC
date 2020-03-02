@@ -98,5 +98,5 @@ end
 
 dataPath = [project,'/data/'];
 
-save2([dataPath,name,'TrainResults.mat'],'resTraining','dataset','-noappend')
-save2([dataPath,name,'TestResults.mat'],'resTesting','dataset','-noappend')
+save2([dataPath,name,'TrainResults.mat'],'dataset','resTraining','-noappend')
+save2([dataPath,name,'TestResults.mat'],'dataset','resTesting','-noappend')

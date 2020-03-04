@@ -75,9 +75,14 @@ if (PARAtrain.gpu ==1)
 end
 
 t1 = tic;
-[~,s_hat,R_D] = apg_trainer(padB,PARAtrain,b);
+[s,s_hat,R_D] = apg_trainer(padB,PARAtrain,b);
 td = toc(t1);    
 fprintf('\nDone training K: %i! --> Time: %2.2f s\n\n', K, td)
+
+
+s_1 = d2dsmall(s,PARAtrain);
+s_2 = dsmall2d(s_1,PARAtest);
+s_hat = fft2(s_2);
 
 t2 = tic;
 [~,s_hat,R_Z] = apg_trainer3(padBtest,PARAtest,btest1,s_hat,btest2);    

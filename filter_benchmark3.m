@@ -20,6 +20,13 @@ datasetsPath = '/home/dreixach/Modular/Datasets/CVPR20/';
 
 % exp = 1;
 
+if exp==2
+    error('Stopping execution'
+elseif exp ==3
+    exp = 2;
+end
+
+
 nameCell = {'02_caltech_2_city_SCSC_';
             '02_caltech_2_fruit_SCSC_'};
 

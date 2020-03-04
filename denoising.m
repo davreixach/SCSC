@@ -49,7 +49,8 @@ verbose = 'outer';
 %% prepare data
 
 b = squeeze(b);
-btest = squeeze(btest);
+btest1 = squeeze(btest1);
+btest2 = squeeze(btest2);
 
 %% run experiment
 

@@ -20,9 +20,9 @@ datasetsPath = '/home/dreixach/Modular/Datasets/CVPR20/';
 
 % exp = 1;
 
-if exp==2
-    error('Stopping execution'
-elseif exp ==3
+if exp == 2
+    error('Stopping execution')
+elseif exp == 3
     exp = 2;
 end
 

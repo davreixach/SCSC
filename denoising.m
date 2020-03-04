@@ -62,10 +62,10 @@ psf_s=[F,F];
 psf_radius = floor( psf_s/2 );
 
 padB = padarray(b, [psf_radius, 0], 0, 'both');
-padBtest = padarray(btest, [psf_radius, 0], 0, 'both');
+padBtest = padarray(btest1, [psf_radius, 0], 0, 'both');
 
 PARAtrain = auto_para_apg(Ri,K,psf_s,b,verbose,precS,use_gpu,1e-3,L);
-PARAtest = auto_para_apg(Ri,K,psf_s,btest,verbose,precS,use_gpu,1e-3,L);
+PARAtest = auto_para_apg(Ri,K,psf_s,btest1,verbose,precS,use_gpu,1e-3,L);
 
 if (PARAtrain.precS ==1)
     b = single(b);
